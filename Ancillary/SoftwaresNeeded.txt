@@ -1,0 +1,7 @@
+List of softwares needed to use M_WEST
+
++MATLAB
++Google Earth
++Notepad++
+
+This is incomplete

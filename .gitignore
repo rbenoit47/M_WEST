@@ -1,0 +1,42 @@
+#RB les types de fichiers que je veux faire ignorer par Git
+*.gif
+*.png
+*.exe
+*.dll
+*.html
+*.txt
+*.mat
+*.fst
+#  attention pas de shell scripts
+*.sh
+Thumbs.db
+*.m.*
+# les packages MATLAB ajoutés pour M_WEST sauf m_map
+GetFullPath/
+catstruct/
+datahash/
+dirwalk/
+grep/
+private/
+strings/
+# pour m_map, ne garder que les .m que j'ai modifiés (m_grid.m et m_text.m):
+**/m_map/*.m
+!**/m_map/m_grid.m
+!**/m_map/m_text.m
+# ceci ne contient que du data
+4tests/
+m/*.c
+# du côté python (.mwest)
+#
+# cette ligne ne fonctionne pas ...bizarre: ClimateClassTemplate/dfiles/
+# remplacer par
+dfiles/
+#
+ClimateClassTemplate/output/
+ClimateClassTemplate/process/
+# 
+**/CommonDirectory/*
+!**/CommonDirectory/*.py
+
+*.alive
+*.status

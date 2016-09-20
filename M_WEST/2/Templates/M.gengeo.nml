@@ -1,0 +1,34 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! GenGeo305 - namelist parameter file 
+! WrittenBy                rbenoit
+! Application              west.model.westats.WEStats
+! Version                  ?.!
+! CreationDate             sam. mars 21 20:49:58 EDT 2015
+!------------------------------------------------------------
+&GENGEO_CFGS
+     gridfile = "M.GengeoMeso.gridfile"
+     outfile =  "M.GengeoMeso.outfile"
+     basedir =  "M.GengeoMeso.basedir"
+ 
+ 
+     aggregtyp = 'auto'
+     ovfmin = 10
+     ovfmax = 20
+     fullscan = .true.
+     topofilt = 'none'
+     vegfilt = 'none'
+     maskfilt = 'none'
+     soilfilt = 'none'
+     topofiltndx = 2
+     vegfiltndx = 2
+     maskfiltndx = 2
+     soilfiltndx = 2
+     consis = 'veg1st' 
+     ip3code = .False.
+     verbose = M.GengeoMeso.verbose
+     debug = .False.
+/
+
+&LOGFILE
+   write = M.GengeoMeso.log
+/

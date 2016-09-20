@@ -1,0 +1,54 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! MMC - namelist parameter file 
+! WrittenBy                rbenoit
+! Application              west.model.westats.WEStats
+! Version                  ?.!
+! CreationDate             mar. avr. 07 12:08:56 EDT 2015
+!------------------------------------------------------------
+&MMC_SETUP
+     path_meso_stats = 'M.MMC.mesostats'
+     path_micro_geophy = 'M.MMC.microgeo'
+     path_z0_defines = 'M.MMC.z0defines'
+     path_msmicro_tiles = 'M.MMC.msmicrotilesdir'
+     path_msmicro_results = 'M.MMC.microstats'
+     merge_var = 'EUMI','E1MI'
+     run_msmicro = M.MMC.runmsmicro
+     delete_intermediate_files = M.MMC.deleteintermediatefiles
+/
+&SET_SWEEP
+     delta = M.MMC.delta
+     I1 = M.MMC.i1
+     I2 = M.MMC.i2
+     J1 = M.MMC.j1
+     J2 = M.MMC.j2
+     ip1micro = 1
+     ip2micro = 2
+     ip3micro = 3
+     alpha = 1
+     nu = 128
+     sigma = M.MMC.sigma
+     tr_ratio = 1.600000
+     meso_frame = 5
+     micro_frame = 205
+     mmc_verbose = M.MMC.verbose
+/
+&COUPLING
+     ms_proj = 'N'
+     gen_tgrg = .True.
+     verbose = .True.
+     flat_z0 = .False.
+     flat_tg = .False.
+     reset_z0_halo = .False.
+     keep_z0_class = .True.
+     grid_from_topo = .True.
+     inner_distance = 0.300000
+     outer_distance = 0.400000
+     ms_rzm = M.MMC.rzm
+     zref =   M.MMC.zref
+     first_270 = .True.
+     varucl = .True.
+     raducl = 3.000000
+     out_var = 'M.MMC.outvar' 
+     out_dir = 'M.MMC.outdir' 
+     mmc_verbose = M.MMC.verbose
+/

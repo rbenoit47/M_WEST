@@ -1,0 +1,49 @@
+###############################################
+# CMC/RPN
+#
+#----------------------------------------------
+# Parent directory for all runs
+#
+ROOT_DIR	M.mc2.rundir
+
+#
+#----------------------------------------------
+# Simulation Parameters
+#
+step    M.mc2.step		# time step (in seconds)
+tstep   M.mc2.tstep		# total number of timesteps
+sample  M.mc2.sample	# output frequency (in timesteps)
+
+nlvs    M.mc2.nlvls		# number of vertical layers in MC2
+nlvspbl M.mc2.nlvspbl	# number of levels in the first 1500m agl
+vmh_ndt M.mc2.vmh_ndt	# number of timsteps during which topography varies in time
+write_logfile	M.mc2.log
+delete_intermediate_files	M.mc2.delete
+
+#---------------------------------------------------
+# Process settings
+USE_DEFAULT_NB_PROCESS false
+NB_PROCESS M.mc2.processors
+
+#
+#----------------------------------------------
+# The grid/geophysical data file
+#
+GEOPHY_FILENAME	M.mc2.geophy
+
+#
+#----------------------------------------------
+# Climate state source table and states to run
+#
+CLIMATE_STATE_TABLE_FILENAME	M.mc2.climatetable
+CLIMATE_STATE	                M.mc2.climatestate
+
+#
+#----------------------------------------------
+# Advanced options
+#
+ADVANCED_OPTION	physics.upolist=M.mc2.upolist
+ADVANCED_OPTION	sor_cfgs.udolist=M.mc2.udolist
+#  ADVANCED_OPTION eole_cfgs.htop=M.mc2.eole.cfgs.htop
+#  modified august 2015 M_WEST tutorial
+ADVANCED_OPTION eole_cfgs.htop=M.mc2.eole_cfgs_htop

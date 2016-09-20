@@ -1,0 +1,27 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! Auto-generated file - It's safe to delete
+!
+! model_grid - namelist parameter file
+! WrittenBy                rbenoit
+! Application              west.model.westats.WEStats
+! Version                  ?.!
+! CreationDate             ven. mars 20 16:51:32 EDT 2015
+!------------------------------------------------------------
+&grid
+  Grd_typ_S="LU"
+  Grd_proj_S="P"
+  Grd_dx=M.Grd_dx
+  Grd_dy=M.Grd_dx
+  Grd_ni=M.Grd_ni
+  Grd_nj=M.Grd_nj
+  Grd_iref=M.Grd_iref
+  Grd_jref=M.Grd_jref
+  Grd_latr=M.Grd_latr
+  Grd_lonr=M.Grd_lonr
+  Grd_dgrw=M.Grd_dgrw
+
+/
+
+&grid_output
+  filename="M.Grd_output"
+/
