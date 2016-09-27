@@ -41,8 +41,10 @@ function WESTvue( Vars,action,fighold,varargin )
 %      'titredata',titre - title string if desired
 %      'vectsample',vectsample - similar to 'sample' but in vector plots
 %      (quiver) (integer)
-%      'vectmode',vectmode - type of vector plotting. One of 'V','M','VM'.
-%      V for vector arrows, M to include magnitude, VM to have both
+%      'vectmode',vectmode - type of vector plotting. One of 'V','M','VM':
+%      V for vector arrows, M to include magnitude, VM to have both;
+%      can also include an 'F'(for Filled contours of vector magnitude M)
+%      for example 'VMF'.
 %      'nosearch' - don't search in the Vars structure for the nomvar variable, just
 %      use the single Var provided in the call
 %      'crop',lonctr,latctr,loncrop,latcrop - to force the plotting window
@@ -416,7 +418,7 @@ switch action
 		V=RECV.data.data;
 		ni=RECU.info.ni;
 		nj=RECU.info.nj;
-		if isequal(vectmode,'V') || isequal(vectmode,'VM') || isequal(vectmode,'MV')
+		if strfind(vectmode,'V') % isequal(vectmode,'V') || isequal(vectmode,'VM') || isequal(vectmode,'MV')
 			samplingj=[1:vectsample:nj,nj];
 			samplingi=[1:vectsample:ni,ni];
 			% m_quiver : U et V sont est et nord
@@ -428,13 +430,20 @@ switch action
 					U(samplingi,samplingj)',V(samplingi,samplingj)',color)
 			end
 		end
-		if isequal(vectmode,'M') || isequal(vectmode,'VM') || isequal(vectmode,'MV')
+		if strfind(vectmode,'M')  %isequal(vectmode,'M') || isequal(vectmode,'VM') || isequal(vectmode,'MV')
 			BUF=sqrt(U.*U+V.*V);
-			if isequal(color,'')
-				m_contour(LON',LAT',BUF')
-			else
-				m_contour(LON',LAT',BUF',color)
-			end
+            if ~strfind(vectmode,'F')
+                if isequal(color,'')
+                    m_contour(LON',LAT',BUF')
+                else
+                    m_contour(LON',LAT',BUF',color)
+                end
+            else
+                m_contourf(LON',LAT',BUF','EdgeColor','none')
+                caxis([min(min(BUF)) max(max(BUF))]);  % pour bonne echelle
+                colormap('jet'); %prior to 2014, defautlt is jet  ('default'); %map)
+                colorbar
+            end
 		end
 %  ---------------------------------------------------		
 	case 'titre'
