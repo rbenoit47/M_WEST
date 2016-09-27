@@ -24,7 +24,7 @@ for i=1:n
     disp(FST)
     %
     savemat=true;
-    [Vars,Infos]=FST2MAT(FST,savemat,extra);  %option de enregistrer en .mat
+    [Vars,Infos]=FST2MATtc(FST,savemat,extra);  %option de enregistrer en .mat
 end
 %
 ok=true;

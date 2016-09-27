@@ -302,7 +302,7 @@ switch action
 		if isequal(M.runmsmicro,'.true.')
 			fprintf('\nOutput file is:%s\nConverting output to .mat format...\nCheck outcome in logfile\n',M.microstats)
 			pause (2)  %just to ensure FST file has been commited to disk
-			FST2MAT(M.microstats,true,'tologfile');
+			FST2MATtc(M.microstats,true,'tologfile');
 		end
 		%
 		if isequal(M.deleteintermediatefiles,'.false.') || isequal(M.runmsmicro,'.false.')
@@ -310,7 +310,7 @@ switch action
 			microGrid.fst='.\MMC_WORKING_DIR\microGrid.fst';
 			fprintf('\nmicroGrid.fst file is:%s\nConverting output to .mat format...\nCheck outcome in logfile\n',microGrid.fst)
 			pause (2)  %just to ensure FST file has been commited to disk
-			FST2MAT(microGrid.fst,true,'tologfile');
+			FST2MATtc(microGrid.fst,true,'tologfile');
 			cd (Here)
 		end
 		%		

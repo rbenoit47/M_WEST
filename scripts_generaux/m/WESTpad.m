@@ -70,7 +70,7 @@ debugit=false;
 mc2verbose=0;
 Grd_output='';
 MesoDxAndZref=false;
-MS3R_ioInPlace=false;
+MS3R_ioInPlace=true; %false;
 if nargin > 1
 	vin=varargin;
 for i=1:length(vin)
@@ -90,8 +90,8 @@ for i=1:length(vin)
 		mc2verbose=1;
 	elseif isequal(vin{i},'MesoDxAndZref')
 		MesoDxAndZref=true;
-	elseif isequal(vin{i},'MS3R_ioInPlace')
-		MS3R_ioInPlace=true;
+% 	elseif isequal(vin{i},'MS3R_ioInPlace')
+% 		MS3R_ioInPlace=true;
 	end
 end
 end

@@ -151,7 +151,7 @@ semble manquer ceci:  9 sept 2015
 		%
 		fprintf('\nOutput file is:%s\nConverting output to .mat format...\nCheck outcome in logfile\n',M.outfile)
 		pause (2)  %just to ensure FST file has been commited to disk
-		FST2MAT(M.outfile,true,'tologfile');
+		FST2MATtc(M.outfile,true,'tologfile');
 		%
 		cd (Here)
 	otherwise
