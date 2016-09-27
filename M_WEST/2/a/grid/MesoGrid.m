@@ -176,7 +176,7 @@ switch action
 		%  
 		fprintf('\nConverting output to .mat format...\nCheck outcome in logfile\n')
 		pause (2)  %just to ensure FST file has been commited to disk
-		FST2MAT(M.Grd_output,true,'tologfile');
+		FST2MATtc(M.Grd_output,true,'tologfile');
 		%
 		cd (Here)
 	otherwise

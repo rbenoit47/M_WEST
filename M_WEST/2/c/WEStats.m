@@ -210,7 +210,7 @@ switch action
 		%
 		target=[M.Stats];
 		fprintf('\nTarget file is:%s\nConverting WEStats output to .mat format...\nCheck outcome in logfile\n',target)
-		FST2MAT(target,true,'tologfile');
+		FST2MATtc(target,true,'tologfile');
 		
 	otherwise
 		'action inconnue'
