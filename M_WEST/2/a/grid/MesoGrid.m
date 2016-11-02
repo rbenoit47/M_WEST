@@ -129,7 +129,7 @@ switch action
 		z3=z2(i1:end);
 		STRING_2=regexprep(z3,'"','''');  %z3 '\s+',' \n'
         i2=regexp(z2,'&grid_output');
-        z4=z2(i1:i2-1); STRING_3=regexprep(z4,'"','''');
+        z4=z2(i1:i2-1); STRING_3=regexprep(z4,'"','''');  % POUR 'M_WEST_CALCULATEUR'
 		if debug
 			display(STRING_2)
 			whos STRING_2
@@ -166,60 +166,49 @@ switch action
 		pyCmd=['set PATH=',PythonPath, ';%PATH%&' ,cmdString,'&exit &'];
         if debug; display(pyCmd);end
         % newline for dos is '&' here.  Last one is to get a window
-        % 'M_WEST_CALCULATEUR'
         mwestguest=getenv('M_WEST_CALCULATEUR'); % si non vide alors on va faire le calcul de MesoGrid sur cette autre machine
         if ~isempty(regexp(mwestguest,'\d'))
-            M_WEST_CALC_DotWestPath=getenv('M_WEST_CALC_DotWestPath')
-            [~,from1,from2]=fileparts(M.Grd_output);
-            CALCname=['./',from1,from2];  %short form of Grd_output
+        % ====================
+        % 'M_WEST_CALCULATEUR'
+        % ====================
+            M_WEST_CALC_DotWestPath=getenv('M_WEST_CALC_DotWestPath');
             PyDir='grid';
             DotPyDir=[M_WEST_CALC_DotWestPath,'/',PyDir];
-            pyCmd=[cmd0,DotPyDir,'/',GridScript,' -dotwest ',M_WEST_CALC_DotWestPath, ...
-			' -settings ','./ModelSettings',' -gridfile ',CALCname,' -dx ',num2str(M.Grd_dx), ...
-            ' -gridstring "',STRING_2,'"']; 
-        %   plink.exe -pw --- -l --- -ssh -X 192.168.1.11 "xterm -e '4plink/runMMC.sh;exit'"
-            ssh_path=getenv('M_WEST_ssh_path'); ssh_cmd_=getenv('M_WEST_ssh_cmd'); scp_cmd=getenv('M_WEST_scp_cmd');
+            ssh_path=getenv('M_WEST_ssh_path'); ssh_cmd_=getenv('M_WEST_ssh_cmd'); 
             sshCmd=[ssh_path, '\', ssh_cmd_];
             sshid=getenv('M_WEST_CALC_id');sshpw=getenv('M_WEST_CALC_pw');
-            sshArgs=['-X -ssh ',mwestguest,' -l ' ,sshid,  ' -pw ' ,sshpw];
-            % ssh_eArg=['"xterm -e ','''',pyCmd,';exit','''','"'];
-            % sshCmd=[sshCmd,' ',sshArgs,' ',ssh_eArg] %;
-            M_WEST_CALC_dir=getenv('M_WEST_CALC_dir')
-            % ship input files to CALC
-            toship=ModelSettings;CALCname='ModelSettings';
-            scpCmd1=[ssh_path, '\', scp_cmd,' -pw ',sshpw,' ',toship,' ',...
-                sshid,'@',mwestguest,':',M_WEST_CALC_dir,'/',CALCname]
-            system(scpCmd1)
-            CALCname=[from1,from2];  %short form of Grd_output
-            scpCmd2=[ssh_path, '\', scp_cmd,' -pw ',sshpw,' ',...
-                sshid,'@',mwestguest,':',M_WEST_CALC_dir,'/',CALCname,' ',M.Grd_output]
-            %  generate a command text file
+            sshArgs=[' -X -ssh ',mwestguest,' -l ' ,sshid,  ' -pw ' ,sshpw];
+            M_WEST_CALC_dir=getenv('M_WEST_CALC_dir');
+            CALCput(ModelSettings,M_WEST_CALC_dir,'ModelSettings');
             LACOM='LACOM';
             fid_LACOM=fopen(LACOM,'w');
             fprintf(fid_LACOM,'GridString="%s"\n',STRING_3);
+            [~,from1,from2]=fileparts(M.Grd_output);
             CALCname=['./',from1,from2];  %short form of Grd_output
             pyCmd=[cmd0,DotPyDir,'/',GridScript,' -dotwest ',M_WEST_CALC_DotWestPath, ...
 			' -settings ','./ModelSettings',' -gridfile ',CALCname,' -dx ',num2str(M.Grd_dx), ...
             ' -gridstring "${GridString}"']; 
             fprintf(fid_LACOM,'%s\n',pyCmd);
-            fclose(fid_LACOM)
+            fclose(fid_LACOM);
             ssh_eArg=['"xterm -e ','''','cd ',M_WEST_CALC_dir,';chmod +x ',LACOM,';./LACOM',';exit','''','"'];
-            sshCmd=[sshCmd,' ',sshArgs,' ',ssh_eArg,'&exit &'] %;
-            scpCmd3=[ssh_path, '\', scp_cmd,' -pw ',sshpw,' ',LACOM,' ',...
-                sshid,'@',mwestguest,':',M_WEST_CALC_dir,'/',LACOM]
-            system(scpCmd3)          
-            dos(sshCmd) %,'-echo')
-            system(scpCmd2)
-            return
+            sshCmd=[sshCmd,' ',sshArgs,' ',ssh_eArg]  % ,'&exit &'];
+            CALCput(LACOM,M_WEST_CALC_dir,'LACOM');
+            system(sshCmd);
+            reponse=input('faire [Enter] ici APRES le Python [Enter]','s');
+            CALCget(CALCname,M_WEST_CALC_dir,M.Grd_output);
+        else
+        % ====================
+        % CALCULS EXÉCUTÉS LOCAUX
+        % ====================
+            cd (DotPyDir)
+            try
+                [status,result]=dos(pyCmd); %,'-echo')
+            catch
+                cd (Here)
+            end
+            reponse=input('faire [Enter] ici APRES le Python [Enter]','s');
         end
-		cd (DotPyDir)
-        try
-			[status,result]=dos(pyCmd); %,'-echo')
-		catch
-			cd (Here)
-		end
 		%
-		reponse=input('faire [Enter] ici APRES le Python [Enter]','s');
 		%  
 		fprintf('\nConverting output to .mat format...\nCheck outcome in logfile\n')
 		pause (2)  %just to ensure FST file has been commited to disk
