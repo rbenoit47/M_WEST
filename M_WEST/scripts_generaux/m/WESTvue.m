@@ -53,6 +53,11 @@ function WESTvue( Vars,action,fighold,varargin )
 %      'justgrid' - plot only dots for the grid on which the chosen Vars is
 %      defined.  Available only with 'contourf'.  The 'sampling' settings
 %      are used herein.
+%      'usepatch' - to allow FAST plotting (in 'contourf' mode) for large
+%      noisy arrays, such as land-use (nomvar='LU') at the microscale.
+%      Only drawback is that the map does not support «datatips or
+%      datacursor» to read point values from map. It then gives only 
+%      the X and Y of the clicked point.
 %      
 %
 % Outputs:
@@ -114,6 +119,7 @@ marker='+';
 crop=false;
 irec=[];
 justgrid=false;
+usepatch=false;
 %
 if nargin > 3
 vin=varargin;
@@ -163,6 +169,8 @@ for i=1:length(vin)
 			close
 			return
 		end
+	elseif isequal(vin{i},'usepatch')
+		usepatch=true;
 	end
 end
 end
@@ -339,7 +347,7 @@ switch action
 		% handle grtyp=Y  cloud of points
 		%
 		cloud=isequal(REC.info.grtyp,'Y');
-		if ~ isequal(minBUF,maxBUF) && ~cloud && ~justgrid
+		if ~ isequal(minBUF,maxBUF) && ~cloud && ~justgrid  && ~usepatch
 			m_contourf(LON',LAT',BUF','EdgeColor','none')  % to remove the contour lines
 			%RB nov 2015 rather than with this: shading flat
 			caxis([min(min(BUF)) max(max(BUF))]);  % pour bonne echelle
@@ -379,6 +387,9 @@ switch action
             m_plot(LONs(in),LATs(in),marker,'Color',color,'MarkerSize',markersize)
 			titre=sprintf('Grille echantillonee a chaque %i x %i points \n',sample,sample);
 			title(titre)
+        elseif usepatch
+            fighandle=gcf;
+            WESTfast_imager( LON,LAT,BUF, false, fighandle );
         else
 			% case of a flat field.  Just plot dots
 			disp('Field is constant.  Show as dots')
