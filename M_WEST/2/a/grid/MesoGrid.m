@@ -167,7 +167,7 @@ switch action
         if debug; display(pyCmd);end
         % newline for dos is '&' here.  Last one is to get a window
         mwestguest=getenv('M_WEST_CALCULATEUR'); % si non vide alors on va faire le calcul de MesoGrid sur cette autre machine
-        if ~isempty(regexp(mwestguest,'\d'))
+        if CALCuse()  % ~isempty(regexp(mwestguest,'\d'))
         % ====================
         % 'M_WEST_CALCULATEUR'
         % ====================
