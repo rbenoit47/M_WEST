@@ -1,0 +1,82 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! MC2-EOLE namelist parameter file
+! 
+! Application              M_WEST
+! 
+!------------------------------------------------------------
+&init_cfgs
+  vraies_mtn = 2
+/
+<grilleNamelist>
+&pil_cfgs
+  Pil_runstrt_S = '20010523.180000', Pil_nesdt = 21600
+  Hblen_x = 5
+  gnnt = 6, grdt = 1800.0, gnnrstrt = 190, gnmtn = 1
+ /
+&restart
+  gnnls = 1
+ /
+&pe_topo
+  npex = 1, npey = 1
+/
+&mc2_cfgs
+  hsolvpre   = 1.0e-4, precond = 'jacobi', maxite = 450, diagres = .false.
+  vmh_stime  = 0, vmh_ndt = <vmh_ndt>
+  nesmt_bgx  = 5, nesmt_bgy = 5, nesmt_ndx = 8, nesmt_ndy = 8
+  gnmaphy    = 1
+  gndstat    = <sample>, gnpstat = <sample>, gnstatdp = 0
+  gnnls      = 1, nstepsor_d = <sample>, launchsor =.false.
+  gndtini    = 0, grninit = 180.0
+  hord_del   = 2, hord_type = 'explicit', hord_lnr = 0.0
+  hord_nutop = 0.0
+  hord_fuv   = 0.0, hord_fww   = 0.0, hord_fhu = 0.0
+  hord_ftt   = 0.0, hord_ftr   = 0.0
+  glconta    = .false., gnnohyd = 1, grepsi = 0.1, gnload = 1
+  z_out      = -1
+  theocase   = 'EOLE'
+  htrop_star = 10000.0
+  tzero_star = 273.16
+/
+&physics
+  incore   = .true.
+  radia    = 'nil', kntrad = 6
+  fluvert  = 'clef', schmsol = 'FCREST'
+  convec   = 'sec', stcond = 'nil'
+  gwdrag   = 'nil', shlcvt = 'nil'
+  pfbtyp   = 'prosplit', hrclip = -1
+  runlgt   = -1
+  wet      = .false., satuco = .false.
+  nstepsor_p = <sample>
+  upolist = 'DLATEN:-1', 'DLONEN:-1', 'MG:-1', 'Z0EN:-1'
+ /
+ &sor_cfgs
+  gtetikt  = '<climateStateId>'
+  fileout  = '<climateStateId>'
+  staguv   = .false.
+  gnip1    = 1
+  gnip3    = 0
+  gnstep1  = 0
+  gnstep2  = 10000
+  levtyp_S = 'g'
+  udolist  = 'TT','P0','UU','VV'
+ /
+ &eole_cfgs
+  gnk        = <nlvs>, grdt = <step>, gnnt = <tstep>, gnnls = <sample>
+  noAB       = .true., noAB_r0 = 0.6, noAB_th0 = 45, noAB_h = 1000.0, noAB_pow = 1
+  htop       = 20000.0
+  hord_zspng = 7, gnnpbl = <nlvspbl>
+  nktop    = -1
+  g_id     = -2, g_if = 1000, g_jd = -2, g_jf = 1000
+  mtn_typ  = ' '
+  mtn_xpos = 39, mtn_ypos = 49, mtn_heigth = 1500.0, mtn_ray = 20.0
+  Hblen_x  = 5, Hblen_y = 5
+  stabilite_air = 2, critstab = 0.6
+  nest_rug = .false., meth_ts = 2, rotarb =.true., cycle_diurne =.false.
+  fhalo    = .true.
+  uprofil1 = <uu1>, uprofil2 = <uu2>, uprofil3 = <uu3>, uprofil4 = <uu4>
+  vprofil1 = <vv1>, vprofil2 = <vv2>, vprofil3 = <vv3>, vprofil4 = <vv4>
+  tprofil1 = <tt1>, tprofil2 = <tt2>, tprofil3 = <tt3>, tprofil4 = <tt4>
+  nofc  = .false.
+  noms  = .true.
+  flat0 = 100.000000
+ /
