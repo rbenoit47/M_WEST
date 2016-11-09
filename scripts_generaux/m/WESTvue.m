@@ -41,8 +41,10 @@ function WESTvue( Vars,action,fighold,varargin )
 %      'titredata',titre - title string if desired
 %      'vectsample',vectsample - similar to 'sample' but in vector plots
 %      (quiver) (integer)
-%      'vectmode',vectmode - type of vector plotting. One of 'V','M','VM'.
-%      V for vector arrows, M to include magnitude, VM to have both
+%      'vectmode',vectmode - type of vector plotting. One of 'V','M','VM':
+%      V for vector arrows, M to include magnitude, VM to have both;
+%      can also include an 'F'(for Filled contours of vector magnitude M)
+%      for example 'VMF'.
 %      'nosearch' - don't search in the Vars structure for the nomvar variable, just
 %      use the single Var provided in the call
 %      'crop',lonctr,latctr,loncrop,latcrop - to force the plotting window
@@ -51,6 +53,11 @@ function WESTvue( Vars,action,fighold,varargin )
 %      'justgrid' - plot only dots for the grid on which the chosen Vars is
 %      defined.  Available only with 'contourf'.  The 'sampling' settings
 %      are used herein.
+%      'usepatch' - to allow FAST plotting (in 'contourf' mode) for large
+%      noisy arrays, such as land-use (nomvar='LU') at the microscale.
+%      Only drawback is that the map does not support «datatips or
+%      datacursor» to read point values from map. It then gives only 
+%      the X and Y of the clicked point.
 %      
 %
 % Outputs:
@@ -112,6 +119,7 @@ marker='+';
 crop=false;
 irec=[];
 justgrid=false;
+usepatch=false;
 %
 if nargin > 3
 vin=varargin;
@@ -161,6 +169,8 @@ for i=1:length(vin)
 			close
 			return
 		end
+	elseif isequal(vin{i},'usepatch')
+		usepatch=true;
 	end
 end
 end
@@ -337,7 +347,7 @@ switch action
 		% handle grtyp=Y  cloud of points
 		%
 		cloud=isequal(REC.info.grtyp,'Y');
-		if ~ isequal(minBUF,maxBUF) && ~cloud && ~justgrid
+		if ~ isequal(minBUF,maxBUF) && ~cloud && ~justgrid  && ~usepatch
 			m_contourf(LON',LAT',BUF','EdgeColor','none')  % to remove the contour lines
 			%RB nov 2015 rather than with this: shading flat
 			caxis([min(min(BUF)) max(max(BUF))]);  % pour bonne echelle
@@ -377,6 +387,9 @@ switch action
             m_plot(LONs(in),LATs(in),marker,'Color',color,'MarkerSize',markersize)
 			titre=sprintf('Grille echantillonee a chaque %i x %i points \n',sample,sample);
 			title(titre)
+        elseif usepatch
+            fighandle=gcf;
+            WESTfast_imager( LON,LAT,BUF, false, fighandle );
         else
 			% case of a flat field.  Just plot dots
 			disp('Field is constant.  Show as dots')
@@ -416,7 +429,7 @@ switch action
 		V=RECV.data.data;
 		ni=RECU.info.ni;
 		nj=RECU.info.nj;
-		if isequal(vectmode,'V') || isequal(vectmode,'VM') || isequal(vectmode,'MV')
+		if strfind(vectmode,'V') % isequal(vectmode,'V') || isequal(vectmode,'VM') || isequal(vectmode,'MV')
 			samplingj=[1:vectsample:nj,nj];
 			samplingi=[1:vectsample:ni,ni];
 			% m_quiver : U et V sont est et nord
@@ -428,13 +441,20 @@ switch action
 					U(samplingi,samplingj)',V(samplingi,samplingj)',color)
 			end
 		end
-		if isequal(vectmode,'M') || isequal(vectmode,'VM') || isequal(vectmode,'MV')
+		if strfind(vectmode,'M')  %isequal(vectmode,'M') || isequal(vectmode,'VM') || isequal(vectmode,'MV')
 			BUF=sqrt(U.*U+V.*V);
-			if isequal(color,'')
-				m_contour(LON',LAT',BUF')
-			else
-				m_contour(LON',LAT',BUF',color)
-			end
+            if ~strfind(vectmode,'F')
+                if isequal(color,'')
+                    m_contour(LON',LAT',BUF')
+                else
+                    m_contour(LON',LAT',BUF',color)
+                end
+            else
+                m_contourf(LON',LAT',BUF','EdgeColor','none')
+                caxis([min(min(BUF)) max(max(BUF))]);  % pour bonne echelle
+                colormap('jet'); %prior to 2014, defautlt is jet  ('default'); %map)
+                colorbar
+            end
 		end
 %  ---------------------------------------------------		
 	case 'titre'
