@@ -11,6 +11,11 @@
 *.sh
 Thumbs.db
 *.m.*
+
+# les répertoires de ménage
+DEADcode/
+4EOLE/
+
 # les packages MATLAB ajoutés pour M_WEST sauf m_map
 GetFullPath/
 catstruct/
