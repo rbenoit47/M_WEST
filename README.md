@@ -12,7 +12,7 @@ December 2015
 Ce dernier est basé sur:
 Gasset, N. et W. Yu, 2011: WEST (Wind Energy Simulation Toolkit) Tutorial.  40 pages.  
 
-Voir le Wiki
+Voir le Wiki https://github.com/rbenoit47/M_WEST/wiki
 
 
 
