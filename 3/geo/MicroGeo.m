@@ -46,6 +46,8 @@ switch action
 			  return;
 		  end
         %
+        %  python must be available!
+        isPythonhere();
         valid=true;
 		  Mhash=DataHash(M);
         disp('Structure M valide')

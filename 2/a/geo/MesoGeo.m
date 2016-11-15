@@ -41,6 +41,8 @@ switch action
 		  %  no blanks in full FST path
 		  if ~QC('isempty(findstr('' '',M.outfile))',M.outfile,'M.outfile');return;end
         %
+        %  python must be available!
+        isPythonhere();
         valid=true;
 		  Mhash=DataHash(M);
         disp('Structure M valide')

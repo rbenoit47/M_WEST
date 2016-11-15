@@ -71,6 +71,8 @@ switch action
 		 if ~QC('ischar(M.upolist)',M.upolist,'M.upolist');return;end
 		 if ~QC('ischar(M.udolist)',M.udolist,'M.udolist');return;end
 		 %
+         %  python must be available!
+         isPythonhere();
 		 valid=true;
 		 Mhash=DataHash(M);
 		 disp('Structure M valide')

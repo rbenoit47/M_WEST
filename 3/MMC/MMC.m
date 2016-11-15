@@ -157,6 +157,8 @@ switch action
 		if ~QC('isnumeric(M.j1) && isequal(M.j1,floor(M.j1)) && M.j1 >0',M.j1,'M.j1');return;end
 		if ~QC('isnumeric(M.j2) && isequal(M.j2,floor(M.j2)) && M.j2 >0',M.j2,'M.j2');return;end
 		%
+        %  python must be available!
+        isPythonhere();
 		valid=true;
 		Mhash=DataHash(M);
 		varargout{1}=M;

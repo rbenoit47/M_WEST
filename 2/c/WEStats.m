@@ -101,6 +101,8 @@ switch action
 		end
 		if ~QC('M.AveragingLength > 0 & M.AveragingLength <= 3',M.AveragingLength,'M.AveragingLength');return;end
 		%
+        %  python must be available!
+        isPythonhere();
 		valid=true;
 		Mhash=DataHash(M);
 		disp('Structure M valide')
