@@ -11,7 +11,8 @@ December 2015
 
 Ce dernier est basé sur:
 Gasset, N. et W. Yu, 2011: WEST (Wind Energy Simulation Toolkit) Tutorial.  40 pages.  
-URL: http://sourceforge.net/projects/westose
+
+Voir le Wiki
 
 
 
