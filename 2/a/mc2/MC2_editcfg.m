@@ -77,6 +77,8 @@ if useprevious
 		Grd_output = PREVIOUS.Grd_output;
 	end
 	varargout{1}=Grd_output;
+else
+    varargout{1}=Grd_output;  % in case we have no 'useprevious' dec 2016
 end
 %
 structdisp(M)

@@ -91,10 +91,14 @@ switch action
 		 end
 		 debug=false;
 		 vin=varargin;
+         pdb=false;
 		 for i=3:length(vin)
 			 if isequal(vin{i},'debug')
 				 debug=vin{i+1};
 			 end
+% 			 if isequal(vin{i},'pdb')
+% 				 pdb=true;
+% 			 end
 		 end
 		 if debug;display(Here);end
 		 rep=input('On continue? Y/N [N]: ','s');
@@ -153,21 +157,38 @@ switch action
 		ModelSettings=Mynml;
 		%
 		DotPyDir=[DotWestPath PyDir];
-		pdb=false;
+% 		pdb=false;
 		if pdb
 			cmd0='python -m pdb ';
 		else
-			cmd0='python ';
+			cmd0='python '; %include a trailing blank
 		end
 		
 		cd (DotPyDir)
 % 		cmdString=['python ',GridScript,' -dotwest ',...
-		cmdString=[cmd0,GridScript,' -dotwest ',...
-			DotWestPath,' -settings ',ModelSettings,' -gridfile ',M.Grd_output,' -dx ',num2str(M.Grd_dx),' -gridstring "',STRING_2,'"'];
-		pyCmd=['set PATH=',PythonPath, ';%PATH%&' ,cmdString,'&exit &'];
-        if debug; display(pyCmd);end
+        ScriptArgs=['-dotwest ',DotWestPath,' -settings ',ModelSettings,...
+            ' -gridfile ',M.Grd_output,' -dx ',num2str(M.Grd_dx),...
+            ' -gridstring %string_2%'];  %NB no " herein
 		% newline for dos is '&' here.  Last one is to get a window
-		
+		% prepare commands in a bat script file
+        fid=fopen('LACOM.bat','w');
+        fprintf(fid,'echo OFF\n');
+        fprintf(fid,'set PATH=%s;%%PATH%%\n',PythonPath);
+        fprintf(fid,'set string_2="%s"\n',STRING_2);
+        fprintf(fid,'%s %s %s\n',cmd0,GridScript,ScriptArgs);
+        fclose(fid);
+        if debug; 
+            display('=== command file to be executed ===');
+            display('=== filename=LACOM.bat          ===')
+            type('LACOM.bat');
+            display(' ')
+            display('=== ........................... ===');
+            display('If error occurs in execution, this file is here')
+            display(pwd)
+            pyCmd='LACOM.bat&exit &';
+        else
+            pyCmd='LACOM.bat&del LACOM.bat&exit &';       
+        end
 		try
 			[status,result]=dos(pyCmd); %,'-echo')
 		catch

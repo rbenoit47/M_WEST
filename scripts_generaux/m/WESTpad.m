@@ -25,8 +25,6 @@ function WESTpad(Action,varargin)
 %      'MesoDxAndZref' - logical key to execute Dx , Zref detection and
 %      I1,I2,J1,J2 calculations to assist in choosing the settings for the
 %      MMC step
-%      'MS3R_ioInPlace' - logical key to select the advanced type of I/O
-%      during MSMicro execution under the MMC step
 %
 % Outputs:
 %    none

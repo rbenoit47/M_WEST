@@ -1,7 +1,7 @@
 function varargout=MMC (action, varargin)
 %
 % action: 'cfg' 'valider' 'exec'
-persistent valid Mhash
+persistent valid Mhash zref
 %
 PythonPath=getenv('PYTHON_PATH');
 DotWestPath=getDotWestPath();
@@ -96,6 +96,8 @@ switch action
 % 		disp('FillIt with above solution')
 		[i1,i2,j1,j2,ok]=FillIt(M.mesostats,M.microgeo,dxmeso, d,M.nu);
 		fprintf('FillIt. I1,J1: %i %i\n        I2,J2: %i %i\n\n',i1,j1,i2,j2)
+%       do a Hash here too (dec 2016, cf C Masson bug of 2 dec 2016 with M.zref=-1)
+        Mhash=DataHash(M);
 		return
 	
 	case 'valider'
@@ -116,7 +118,7 @@ switch action
 		if ~emptyfolder(M.msmicrotilesdir) && isequal(M.runmsmicro,'.false.')
 			disp('Folder msmicrotilesdir doit etre vide avant execution MMC runmsmicro(false).')
 			return
-		end
+        end
 		
 		[pathstr, ~, ~] = fileparts(M.microstats);
 		test=['exist(''',pathstr,''',''dir'')'];
@@ -196,7 +198,11 @@ switch action
 		if ~isequal(Mhash, MhashNew)
 			APEmsg1('Structure M has changed since last validation.  Must checkit again','exit')
 		end
-		
+		% control on zref
+        if M.zref  ~= str2num(zref)
+            fprintf('zref from mesostat=%d M.zref from editcfg=%d\n',str2num(zref),M.zref)
+            APEmsg1('Your M.zref is not equal to that from the mesostat file. Must correct your editcfg file.  Must checkit again','exit')
+		end           
 		debug=false;
 		vin=varargin;
 		MS3R_ioInPlace=false;
@@ -289,10 +295,29 @@ switch action
 		cd (DotPyDir)
       %
 		cmdString=[GridScript,' ',ModelSettings,' ',num2str(MS3R_ioInPlace)];  %
-		pyCmd=[';set PATH=',PythonPath, ';%PATH%&' ,cmdString,'&exit &'];
-		if debug;display(pyCmd);end
+% 		pyCmd=[';set PATH=',PythonPath, ';%PATH%&' ,cmdString,'&exit &'];
+% 		if debug;display(pyCmd);end
 		% newline for dos is '&' here.  Last one is to get a window
-		try
+        % prepare commands in a bat script file
+        fid=fopen('LACOM.bat','w');
+        fprintf(fid,'echo OFF\n');
+        fprintf(fid,'set PATH=%s;%%PATH%%\n',PythonPath);
+        fprintf(fid,'%s\n',cmdString);
+        fclose(fid);
+        if debug
+            display('=== command file to be executed ===');
+            display('=== filename=LACOM.bat          ===')
+            type('LACOM.bat');
+            display(' ')
+            display('=== ........................... ===');
+            display('If error occurs in execution, this file is here')
+            display(pwd)
+            pyCmd='LACOM.bat&exit &';
+        else
+            pyCmd='LACOM.bat&del LACOM.bat&exit &';       
+        end
+                
+        try
 			[status,result]=dos(pyCmd); %,'-echo')
 		catch
 			cd (Here)

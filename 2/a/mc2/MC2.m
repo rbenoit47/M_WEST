@@ -203,7 +203,26 @@ switch action
 		pyCmd=['set PATH=',PythonPath, ';%PATH%&' ,cmdString,'&exit &'];
 		if debug;display(pyCmd);end
 		% newline for dos is '&' here.  Last one is to get a window
-		try
+        % prepare commands in a bat script file
+        fid=fopen('LACOM.bat','w');
+        fprintf(fid,'echo OFF\n');
+        fprintf(fid,'set PATH=%s;%%PATH%%\n',PythonPath);
+        fprintf(fid,'%s\n',cmdString);
+        fclose(fid);
+        if debug
+            display('=== command file to be executed ===');
+            display('=== filename=LACOM.bat          ===')
+            type('LACOM.bat');
+            display(' ')
+            display('=== ........................... ===');
+            display('If error occurs in execution, this file is here')
+            display(pwd)
+            pyCmd='LACOM.bat&exit &';
+        else
+            pyCmd='LACOM.bat&del LACOM.bat&exit &';       
+        end
+                
+        try
 			[status,result]=dos(pyCmd); %,'-echo')
 		catch
 			cd (Here)
@@ -231,8 +250,28 @@ switch action
 			' -ClimateStatePrefix ', ClimateStatePrefix];
 		%
 		pyCmd=['set PATH=',PythonPath, ';%PATH%&' ,cmdString,'&exit &'];
-		if debug;display(pyCmd);end
-		%
+% 		if debug;display(pyCmd);end
+
+        % prepare commands in a bat script file
+        fid=fopen('LACOM2.bat','w');
+        fprintf(fid,'echo OFF\n');
+        fprintf(fid,'set PATH=%s;%%PATH%%\n',PythonPath);
+        fprintf(fid,'%s\n',cmdString);
+        fclose(fid);
+        if debug
+            display('=== command file to be executed ===');
+            display('=== filename=LACOM2.bat         ===')
+            type('LACOM.bat');
+            display(' ')
+            display('=== ........................... ===');
+            display('If error occurs in execution, this file is here')
+            display(pwd)
+            pyCmd='LACOM2.bat&exit &';
+        else
+            pyCmd='LACOM2.bat&del LACOM.bat&exit &';       
+        end
+
+%
 		try
 			[status,result]=dos(pyCmd);
 		catch

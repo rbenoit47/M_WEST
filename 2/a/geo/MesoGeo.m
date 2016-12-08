@@ -139,9 +139,26 @@ semble manquer ceci:  9 sept 2015
 			DotWestPath,' -settings ',ModelSettings,' -gridfile ',M.gridfile, ' -geofile ', M.outfile, ...
             ' -verbose ', num2str(min(M.verbose,1)), ' -logfile ',num2str(logfileVal)];  %
 
-		pyCmd=[';set PATH=',PythonPath, ';%PATH%&' ,cmdString,'&exit &'];
-		if debug;display(pyCmd);end
+		pyCmd=['set PATH=',PythonPath, ';%PATH%&' ,cmdString,'&exit &'];
 		% newline for dos is '&' here.  Last one is to get a window
+        % prepare commands in a bat script file
+        fid=fopen('LACOM.bat','w');
+        fprintf(fid,'echo OFF\n');
+        fprintf(fid,'set PATH=%s;%%PATH%%\n',PythonPath);
+        fprintf(fid,'%s\n',cmdString);
+        fclose(fid);
+        if debug
+            display('=== command file to be executed ===');
+            display('=== filename=LACOM.bat          ===')
+            type('LACOM.bat');
+            display(' ')
+            display('=== ........................... ===');
+            display('If error occurs in execution, this file is here')
+            display(pwd)
+            pyCmd='LACOM.bat&exit &';
+        else
+            pyCmd='LACOM.bat&del LACOM.bat&exit &';       
+        end
 		
 		try
 			[status,result]=dos(pyCmd); %,'-echo')

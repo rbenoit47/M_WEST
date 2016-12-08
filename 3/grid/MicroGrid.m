@@ -154,12 +154,39 @@ switch action
 		%
 		DotPyDir=[DotWestPath PyDir];
 		cd (DotPyDir)
-		cmdString=['python ',GridScript,' -dotwest ',...
-			DotWestPath,' -settings ',ModelSettings,' -gridfile ',M.Grd_output,' -dx ',num2str(M.Grd_dx),' -gridstring "',STRING_2,'"'];
-		pyCmd=['set PATH=',PythonPath, ';%PATH%&' ,cmdString,'&exit &'];
-        if debug; display(pyCmd);end
+% 		cmdString=['python ',GridScript,' -dotwest ',...
+% 			DotWestPath,' -settings ',ModelSettings,' -gridfile ',M.Grd_output,' -dx ',num2str(M.Grd_dx),' -gridstring "',STRING_2,'"'];
+        % dec 2016.  problem with quotes in dos cmd.
+        % work around:
+% 		pyCmd=['set PATH=',PythonPath, ';%PATH%&' ,cmdString,'&exit &'];
+%         if debug; display(pyCmd);display(DotPyDir);display(STRING_2);end
 		% newline for dos is '&' here.  Last one is to get a window
-		
+
+		% prepare commands in a bat script file
+        ScriptArgs=['-dotwest ',DotWestPath,' -settings ',ModelSettings,...
+            ' -gridfile ',M.Grd_output,' -dx ',num2str(M.Grd_dx),...
+            ' -gridstring %string_2%'];  %NB no " herein
+
+        fid=fopen('LACOM.bat','w');
+        fprintf(fid,'echo OFF\n');
+        fprintf(fid,'set PATH=%s;%%PATH%%\n',PythonPath);
+        fprintf(fid,'set string_2="%s"\n',STRING_2);
+        fprintf(fid,'python %s %s\n',GridScript,ScriptArgs);
+        fclose(fid);
+        if debug; 
+            display('=== command file to be executed ===');
+            display('=== filename=LACOM.bat          ===')
+            type('LACOM.bat');
+            display(' ')
+            display('=== ........................... ===');
+            display('If error occurs in execution, this file is here')
+            display(pwd)
+            pyCmd='LACOM.bat&exit &';
+        else
+            pyCmd='LACOM.bat&del LACOM.bat&exit &';       
+        end
+        
+        
 		try
 			[status,result]=dos(pyCmd); %,'-echo')
 		catch
