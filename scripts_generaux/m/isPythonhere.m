@@ -2,11 +2,12 @@ function [ ok ] = isPythonhere( )
 %UNTITLED ispythonthere() checks for availability of Python, needed for
 %M_WEST
 %   Detailed explanation goes here
-persistent was_shown
+persistent was_shown dir_was_shown
 p=getenv('Python_Path');
 ok=false;
 cmd='python -V';
 if isempty(was_shown);was_shown=false;end
+if isempty(dir_was_shown);dir_was_shown=false;end
 %
 [status,cmdout]=system(cmd);
 if isequal (status, 0) && numel(cmdout) > 0
@@ -15,13 +16,15 @@ if isequal (status, 0) && numel(cmdout) > 0
         was_shown=true;
     end
 elseif exist(p,'dir')
-    display(['Checking for python.exe on your ''Python_Path'' ',p])
+    if ~dir_was_shown ;display(['Checking for python.exe on your ''Python_Path'' ',p]);end
     [status,z]=system(['cd C:\&C:&dir ',p,'\python.exe /s /b']);
     if numel(z) > 0 && status == 0
-        display('Python executable was found in your ''Python_Path'' folder')
-        fprintf('%s\n',z)
-        display('Python is here')
-        was_shown=true;
+        if ~dir_was_shown 
+            display('Python executable was found in your ''Python_Path'' folder')
+            fprintf('%s\n',z)
+            display('Python is here')
+            dir_was_shown=true;
+        end
     else
         display('Python executable was NOT found in your ''Python_Path'' folder')
         APEmsg1('You MUST ADJUST your ''Python_Path'' folder','exit')
