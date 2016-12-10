@@ -1,0 +1,188 @@
+commit 3b956dd4f61c0d3cc2edafcdd6f625af69997972
+Author: Robert Benoît <robert.benoit.47@gmail.com>
+Date:   Fri Dec 9 20:55:52 2016 -0500
+
+    Improved again isPythonhere
+
+commit 45db6ea38c5c934a350b28bcdab7faa8ea55da35
+Author: Robert Benoît <robert.benoit.47@gmail.com>
+Date:   Fri Dec 9 09:41:00 2016 -0500
+
+    Improved isPythonhere
+
+commit f3abd0fcb82f3f0bc92aafe4ce0988fe30fb3d46
+Author: Robert Benoît <robert.benoit.47@gmail.com>
+Date:   Wed Dec 7 20:22:30 2016 -0500
+
+    For all runit: generate short command files rather that use complex system commands that fail on my laptop
+
+commit 705f966ad9f1f9e012e4b5b3a03314d0f9c0d11d
+Merge: c7601a6 16fcedc
+Author: Robert Benoît <robert.benoit.47@gmail.com>
+Date:   Tue Nov 15 18:05:06 2016 -0500
+
+    pullMerge branch 'master' of https://github.com/rbenoit47/M_WEST
+    pull needed just due to README.md
+
+commit c7601a6b03764b4fe3bd33f93cafb2bd9745384d
+Author: Robert Benoît <robert.benoit.47@gmail.com>
+Date:   Tue Nov 15 18:01:30 2016 -0500
+
+    For all valider: check Python availability
+
+commit 4df601a572382ed3967bc9ab8277fefcebaaa80d
+Author: Robert Benoît <robert.benoit.47@gmail.com>
+Date:   Tue Nov 15 12:15:43 2016 -0500
+
+    For all valider: check Python availability
+
+commit 16fcedc48083b573b63e1a7ae6e23e48419b8efd
+Author: Robert Benoit <robert.benoit.47@gmail.com>
+Date:   Mon Nov 14 20:46:36 2016 -0500
+
+    Update README.md
+
+commit 06849a953a65130a506050b17b60d6b803aa9a5d
+Author: Robert Benoit <robert.benoit.47@gmail.com>
+Date:   Mon Nov 14 20:45:38 2016 -0500
+
+    Update README.md
+
+commit 100bb36a5daa16a951bfacf0bd6dd76d97265a9f
+Author: Robert Benoît <robert.benoit.47@gmail.com>
+Date:   Mon Nov 14 18:12:37 2016 -0500
+
+    move codes to DEADcode or 4EOLE...menage...9
+
+commit 71e2d6e471361ca105c5cc245d753052cbb47e23
+Author: Robert Benoît <robert.benoit.47@gmail.com>
+Date:   Mon Nov 14 18:10:03 2016 -0500
+
+    move codes to DEADcode or 4EOLE...menage...8
+
+commit 35781de0de7b020159eb1cddf2b9a248c85a42de
+Author: Robert Benoît <robert.benoit.47@gmail.com>
+Date:   Mon Nov 14 17:54:55 2016 -0500
+
+    move codes to DEADcode or 4EOLE...menage...7
+
+commit 59988edab4f6582881fca4616736364ee9978b22
+Author: Robert Benoît <robert.benoit.47@gmail.com>
+Date:   Mon Nov 14 17:52:06 2016 -0500
+
+    move codes to DEADcode or 4EOLE...menage...6
+
+commit 358f26eb9838a38ea4be3ac51ea07b5f2223352d
+Author: Robert Benoît <robert.benoit.47@gmail.com>
+Date:   Mon Nov 14 17:47:48 2016 -0500
+
+    move codes to DEADcode or 4EOLE...menage...5
+
+commit efa212abe5a463edc8b14e9315530ffc99c7e174
+Author: Robert Benoît <robert.benoit.47@gmail.com>
+Date:   Mon Nov 14 17:41:09 2016 -0500
+
+    move codes to DEADcode or 4EOLE...menage...4
+
+commit 5530e22a663bea781166926bd1eec329366adfd9
+Author: Robert Benoît <robert.benoit.47@gmail.com>
+Date:   Mon Nov 14 17:36:15 2016 -0500
+
+    move codes to DEADcode or 4EOLE...menage...3
+
+commit 449d93f4930604142a3b2e59f934f1f4b008447f
+Author: Robert Benoît <robert.benoit.47@gmail.com>
+Date:   Mon Nov 14 14:47:31 2016 -0500
+
+    move codes to DEADcode or 4EOLE...menage...2
+
+commit d63fb2d3849d1998eee0e198df50b094e5102628
+Author: Robert Benoît <robert.benoit.47@gmail.com>
+Date:   Mon Nov 14 14:41:23 2016 -0500
+
+    move codes to DEADcode or 4EOLE...menage
+
+commit 770b2cceda78036df6d27a666fc980ce022af6f7
+Author: rbenoit47 <robert.benoit.47@gmail.com>
+Date:   Wed Nov 9 21:23:50 2016 -0500
+
+    Create README.md
+
+commit 0df8cd39b6e73b87a60d2e2f110b8537b2f83569
+Author: Robert Benoît <robert.benoit.47@gmail.com>
+Date:   Wed Nov 9 21:01:36 2016 -0500
+
+    branch cleanup merged
+
+commit 8cf1d826a63271addc57ceef8b7dc95d4c97f4b8
+Author: Robert Benoît <rbenoit@etsmtl.ca>
+Date:   Tue Sep 27 17:35:52 2016 -0400
+
+    Work done spet 27 2016 mostly FST2MATtc
+
+commit 1fbab649b24c29c0966762ce03e57cca0c272e09
+Merge: 2a1f542 e3d9085
+Author: Robert Benoît <robert.benoit.47@gmail.com>
+Date:   Wed Nov 9 18:28:46 2016 -0500
+
+    branch WESTvue merged
+
+commit 2a1f5427f77b42bb4d1317ef9d294f377615c5f0
+Author: Robert Benoît <robert.benoit.47@gmail.com>
+Date:   Wed Nov 9 14:11:01 2016 -0500
+
+    Folder M_WEST vidé vers base du git
+
+commit 05a4ffb64613a8a9892d180490ead96753a21122
+Author: Robert Benoît <robert.benoit.47@gmail.com>
+Date:   Wed Nov 9 14:06:00 2016 -0500
+
+    Folder M_WEST vidé vers base du git
+
+commit 5b4adff7ae7360584aa532fb543b85cf0b14ad1b
+Author: Robert Benoît <robert.benoit.47@gmail.com>
+Date:   Wed Nov 9 12:47:19 2016 -0500
+
+    Folder M_WEST vidé vers base du git
+
+commit 1cccc281ef0b5512070828da1c0591fd0d73bdfd
+Author: Robert Benoît <rbenoit@etsmtl.ca>
+Date:   Wed Nov 9 11:31:06 2016 -0500
+
+    Folder M_WEST vidé vers base du git
+
+commit 919905ff8d0da02dfa3ac156617371910c2e9b56
+Author: Robert Benoît <rbenoit@etsmtl.ca>
+Date:   Wed Nov 9 11:25:32 2016 -0500
+
+    Folder M_WEST vidé vers base du git
+
+commit 776321579d0beedafd8d7b5ed4e17a61f7ea2a71
+Author: Robert Benoît <rbenoit@etsmtl.ca>
+Date:   Wed Nov 9 11:03:32 2016 -0500
+
+    Folder M_WEST vidé vers base du git
+
+commit e3d9085dd01dbe1ecdaa64b59116e8b3a71449cb
+Author: Robert Benoît <rbenoit@etsmtl.ca>
+Date:   Wed Nov 9 10:42:40 2016 -0500
+
+    Folder M_WEST vidé vers base du git
+
+commit d6db46e6983040404e5e819e0693feae62916c65
+Author: Robert Benoît <rbenoit@etsmtl.ca>
+Date:   Tue Nov 8 16:22:58 2016 -0500
+
+    Pour livraison C Masson Nov 2016
+
+commit f74f0a0f94052d372d53ded559f55dc37f098b62
+Author: Robert Benoît <rbenoit@etsmtl.ca>
+Date:   Tue Sep 27 16:37:23 2016 -0400
+
+    Added option for filled contours of vector magnitude(module) in WESTvue
+
+commit 33076c01ce6f30f5bb6bcf2a79625585e9d47320
+Author: Robert Benoît <rbenoit@etsmtl.ca>
+Date:   Tue Sep 20 15:53:50 2016 -0400
+
+    E16snapshot
