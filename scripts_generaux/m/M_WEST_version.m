@@ -4,6 +4,11 @@ function [ version ] = M_WEST_version()
 M_WEST=getenv('M_WEST_PATH');
 fid=fopen([M_WEST,'\M_WEST_tags.txt']);
 version=fgetl(fid);
+line=version;
+while ischar(line)
+    line=fgetl(fid);
+    if ischar(line);version=line;end
+end
 fclose(fid);
 fprintf('M_WEST version is %s\n',version)
 %
