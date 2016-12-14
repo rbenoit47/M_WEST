@@ -62,5 +62,6 @@ end
 disp(['WEST step is ',WESTstep])
 disp('Configuration editor (function editcfg.m) has been created here')
 disp('Edit its content and then use the WESTpad() function to perform the current WEST step') 
-
+% idea for future work: Capture the Hash of the initial editcfg to warn
+% against user not editing it rather than checkit'ing
 return
