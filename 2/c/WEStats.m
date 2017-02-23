@@ -94,11 +94,15 @@ switch action
 		if ~QC('exist(M.table_ef,''file'')',M.table_ef,'M.table_ef');return;end
 		if ~QC('M.StatsLevel > 0 & M.StatsLevel <= 100',M.StatsLevel,'M.StatsLevel');return;end
 		if ~QC('M.MaxWindSpeed > 0 & M.MaxWindSpeed <= 30',M.MaxWindSpeed,'M.MaxWindSpeed');return;end
-		[pathstr, ~, ~] = fileparts(M.Stats) ;
+		[pathstr, statsfilename, ~] = fileparts(M.Stats) ;
 		if ~QC('exist(pathstr,''dir'')',M.Stats,'M.Stats')
 			fprintf('Le repertoire (%s) devant recevoir M.Stats (%s) est inexistant. Corriger\n',pathstr,M.Stats) 
 			return
-		end
+        end
+        if ~QC('isempty(strfind(statsfilename,'' ''))',M.Stats,'M.Stats')
+            fprintf('Fichier M.Stats %s \n nom incorrect\n (contient blanc)\nCorriger\n',M.Stats)
+            return
+        end
 		if ~QC('M.AveragingLength > 0 & M.AveragingLength <= 3',M.AveragingLength,'M.AveragingLength');return;end
 		%
         %  python must be available!

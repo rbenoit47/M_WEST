@@ -81,4 +81,5 @@ os.system(FSTMOVEINFO_CMD)
 
 write_alive("completed")
 print 'Done...'
+print 'If **NO** Mc2 dynamics files were found, CHECK YOUR DynamicsTimeStepNumber!!!' 
 raw_input('Press ENTER to exit')

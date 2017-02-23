@@ -1,13 +1,14 @@
 function [ H ] = ShowPrevious( )
-%UNTITLED Summary of this function goes here
+%SHow history of previous commands for M_WEST steps
 %   Detailed explanation goes here
-history=which ('mwrc.mat');
-if isempty (history)
+M_WESThist=getenv('M_WEST_HIST');
+% hist=which(M_WESThist,'all'); % ('mwrc.mat');
+if ~exist (M_WESThist)
     display ('There is no previous history content')
     return
 end
 clear 'H'
-load (history)
+load (M_WESThist)
 all=WESTsteps;
 [~,nall]=size(all);
 display(' ')
