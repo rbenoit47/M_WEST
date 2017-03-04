@@ -136,11 +136,13 @@ if verbose:
     print hitsAO, len(hitsAO)
 for i in range(len(hitsAO)):
     #AO=re.split('\t| |\s!<,|=',hitsAO[i])   # pas de =.  enlever. sept 2015
-    #AO=re.split('\t| |\s!<,|',hitsAO[i])     # pas de =.  enlever. sept 2015
-    AO=re.split('\t| |\s!<,|=',hitsAO[i])     # remis le =. 3 fevrier 2016
+    AO=re.split('\t| |\s!<,|',hitsAO[i])     # pas de =. sept 2015
+    #2017 mais il faut editer value pour y remplacer = par :
+
     tokens=re.split('\.',AO[1])
     token=tokens[1]
     value='';value=value.join(AO[2:])
+    value=re.sub('=',':',value) #2017
     if verbose:
         print token,'||',value
         print '==========',AO 
