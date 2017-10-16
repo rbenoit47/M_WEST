@@ -136,7 +136,8 @@ if verbose:
     print hitsAO, len(hitsAO)
 for i in range(len(hitsAO)):
     #AO=re.split('\t| |\s!<,|=',hitsAO[i])   # pas de =.  enlever. sept 2015
-    AO=re.split('\t| |\s!<,|',hitsAO[i])     # pas de =. sept 2015
+    #AO=re.split('\t| |\s!<,|',hitsAO[i])     # pas de =. sept 2015
+    AO=re.split('\t| |\s!<,|=',hitsAO[i])    # oct 2017 on remet le caractere =
     #2017 mais il faut editer value pour y remplacer = par :
 
     tokens=re.split('\.',AO[1])
